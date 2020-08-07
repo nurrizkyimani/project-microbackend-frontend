@@ -38,18 +38,37 @@ function Header() {
         >
           {[
             {
+              route: `/home`,
+              title: `Home`,
+            },
+            {
               route: `/about`,
               title: `About`,
             },
 
+            {
+              route: `/signin`,
+              title: `Sign In`,
+            },
+
+            {
+              route: `/signup`,
+              title: `Sign Up`,
+            },
+            
+
           ].map((link) => (
+            <a
+              key={link.title}
+            >
             <Link
               className="block mt-4 text-white no-underline md:inline-block md:mt-0 md:ml-6"
-              key={link.title}
+              
               to={link.route}
             >
               {link.title}
-            </Link>
+              </Link>
+            </a>
           ))}
         </nav>
       </div>

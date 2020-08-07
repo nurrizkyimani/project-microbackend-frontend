@@ -1,43 +1,35 @@
-import React from 'react';
-
+import React from 'react'
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
 import { useForm } from 'react-hook-form';
-import axios from 'axios'
-import {useState} from 'react'
 
-function IndexPage() {
+
+
+function SignInPage() {
   const { register, handleSubmit, errors } = useForm();
-  const storedJwt = localStorage.getItem('token');
-  const [jwt, setJwt] = useState(storedJwt || null);
+
 
 	const onSubmit = (data) => {
-    console.log(data.username);
+		console.log(data.username);
 
-    const instance = axios.create({withCredentials: true})
-    
-    instance.post(`${process.env.REGIST_EP}`, {
-      username: data.username,
-      password: data.password
-    },
-      {
-      'Content-Type': ' application/json',
-        withCredentials: true,
-        origin: 'http://localhost:5001'
+		const url = `${process.env.URL_EP}/register`
+		const options = {
+			method: `post`,
+			body: JSON.stringify({ username: data.username, password: data.password }),
+			headers: {
+				'Content-Type': ' application/json',
 			},
-    )
-      .then(res => {
-        console.log(res);
-        setJwt(res.data.accesToken)
-        console.log(jwt);
-        localStorage.setItem('token2', res.data.accesToken);
-        // console.log(res.cookie);
-      })
-      .catch(err => console.log(err))
-
+			credentials: 'include',
+		};
 		
-	};
+		fetch(url, options)
+			.then(res => {
+				console.log(res);
+			}).catch(err => console.log(err))
+		
+	}
+
 
 	return (
 		<Layout>
@@ -45,6 +37,7 @@ function IndexPage() {
 
 			<section>
 				<div className="p-10 border-gray-100 border rounded shadow-md m-auto w-full max-w-sm ">
+					<p className="text-2xl py-2">Sign Up</p>
 					<form className="flex flex-col max-w-md space-y-3 " onSubmit={handleSubmit(onSubmit)} action="">
 						<label>Email </label>
 						<input
@@ -76,4 +69,4 @@ function IndexPage() {
 	);
 }
 
-export default IndexPage;
+export default SignInPage;
