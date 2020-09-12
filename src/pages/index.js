@@ -4,7 +4,7 @@ import SEO from '../components/seo';
 import { useForm } from 'react-hook-form';
 
 
-function LoginPage() {
+function IndexPage() {
   const { register, handleSubmit, errors } = useForm();
 
 
@@ -73,4 +73,4 @@ function LoginPage() {
 	);
 }
 
-export default LoginPage;
+export default IndexPage;
